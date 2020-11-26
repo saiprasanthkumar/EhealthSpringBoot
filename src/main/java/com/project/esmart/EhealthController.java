@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -111,7 +112,8 @@ public class EhealthController {
 				if(!user.getType().equalsIgnoreCase(users.get(i).getType())) {
 					throw new Exception("User Type did not match");
 				}
-				return user;
+				return this.users.get(i);
+				
 			}
 		}
 		
@@ -157,7 +159,16 @@ public class EhealthController {
 		return this.medication;
 	}
 	@PostMapping(path = "/add/billing")
-	public List<Billing> addBilling(@RequestBody Billing billing) {
+	public List<Billing> addBilling(@RequestBody Billing billing) throws Exception{
+		boolean flag1 = false;
+		for (Patient patient : patients) {
+			if(billing.getPatientId().equals(patient.getPatientId())) {
+				flag1= true;
+			}
+		}
+		if(!flag1) {
+			throw new Exception("Please enter the patient id");
+		}
 		boolean flag = false;
 		for (Billing billingIte : billings) {
 			if(billingIte.getPatientId().equals(billing.getPatientId())) {
