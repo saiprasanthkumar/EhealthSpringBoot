@@ -20,6 +20,7 @@ public class EhealthController {
 	List<Room> rooms = new ArrayList<Room>();
 	List<Appointment> appointments = new ArrayList<Appointment>();
 	List<Medication> medication = new ArrayList<Medication>();
+	List<Billing> billings = new ArrayList<Billing>();
 	
 	@PostMapping(path = "/updatepatient")
 	public List<Patient> updatePatientDetails(@RequestBody Patient patient) {
@@ -43,7 +44,7 @@ public class EhealthController {
 		return rooms;
 	}
 	
-	@PutMapping(path = "/book-appointment")
+	@PutMapping(path = "/book/appointment")
 	public List<Appointment> updateRoomBooking(@RequestBody Appointment appointment) {
 		for (Appointment appointmentIterator : appointments) {
 			if(appointmentIterator.getDoctorId().equals(appointment.getDoctorId())
@@ -53,6 +54,12 @@ public class EhealthController {
 			}
 		}
 		return appointments;
+	}
+	
+	@PostMapping(path = "/add/appointment")
+	public List<Appointment> addAppointment(@RequestBody Appointment appointment) {
+		this.appointments.add(appointment);
+		return this.appointments;
 	}
 	
 	@PostMapping(path = "/update-doctor")
@@ -147,7 +154,32 @@ public class EhealthController {
 	}
 	@PostMapping(path = "/add/medication")
 	public List<Medication> getMedication(@RequestBody Medication medication) {
+		for (Medication medicationIt : this.medication) {
+			if(medicationIt.getPatientId().equals(medication.getPatientId())) {
+				StringBuilder str = new StringBuilder(medicationIt.getDescription());
+				str.append(medication.getDescription());
+				medicationIt.setDescription(str.toString());
+				return this.medication;
+			}
+		}
 		this.medication.add(medication);
 		return this.medication;
+	}
+	@PostMapping(path = "/add/billing")
+	public List<Billing> addBilling(@RequestBody Billing billing) {
+		for (Billing billingIte : billings) {
+			if(billingIte.getPatientId().equals(billing.getPatientId())) {
+				billingIte.setAmount(billing.getAmount());
+				billingIte.setDescription(billing.getDescription());
+				billingIte.setPayed(billing.isPayed());
+				return billings;
+			}
+		}
+		this.billings.add(billing);
+		return billings;
+	}
+	@GetMapping(path = "/view/billing")
+	public List<Billing> viewBilling() {
+		return this.billings;
 	}
 }

@@ -1,8 +1,10 @@
 package com.project.esmart;
 
-public class Medication {
+public class Billing {
 	private String patientId;
 	private String description;
+	private String amount;
+	private boolean isPayed;
 	public String getPatientId() {
 		return patientId;
 	}
@@ -14,6 +16,18 @@ public class Medication {
 	}
 	public void setDescription(String description) {
 		this.description = description;
+	}
+	public String getAmount() {
+		return amount;
+	}
+	public void setAmount(String amount) {
+		this.amount = amount;
+	}
+	public boolean isPayed() {
+		return isPayed;
+	}
+	public void setPayed(boolean isPayed) {
+		this.isPayed = isPayed;
 	}
 	
 }
