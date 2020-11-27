@@ -76,13 +76,19 @@ public class EhealthController {
 	}
 
 	
-	@PostMapping(path = "/del-doctor")
-	public List<Doctor> deleteDoctor(@RequestBody String name) throws Exception {
+	@PostMapping(path = "/delete/doctor")
+	public List<Doctor> deleteDoctor(@RequestBody Doctor doctor) throws Exception {
 		boolean rem = false;
-		for (Doctor doctorIterate : doctors) {
-			if(doctorIterate.getName().toLowerCase().equals(name.toLowerCase())) {
+		for (int i = 0; i < doctors.size(); i++) {
+			if(this.doctors.get(i).getId().toLowerCase().equals(doctor.getId().toLowerCase())) {
 				rem = true;
-				doctors.remove(doctorIterate);
+				this.doctors.remove(i);
+			}
+		}
+		for (int i = 0; i < users.size(); i++) {
+			if(this.users.get(i).getUserId().toLowerCase().equals(doctor.getId().toLowerCase())) {
+				rem = true;
+				this.users.remove(i);
 			}
 		}
 		if(!rem) {
@@ -90,6 +96,28 @@ public class EhealthController {
 		}
 		return doctors;
 	}
+	
+	@PostMapping(path = "/delete/patient")
+	public List<Patient> deletePatient(@RequestBody Patient id) throws Exception {
+		boolean rem = false;
+		for (int i = 0; i < patients.size(); i++) {
+			if(this.patients.get(i).getPatientId().toLowerCase().equals(id.getPatientId().toLowerCase())) {
+				rem = true;
+				this.patients.remove(i);
+			}
+		}
+		for (int i = 0; i < users.size(); i++) {
+			if(this.users.get(i).getUserId().toLowerCase().equals(id.getPatientId().toLowerCase())) {
+				rem = true;
+				this.users.remove(i);
+			}
+		}
+		if(!rem) {
+			throw new Exception("Doctor name did not match");
+		}
+		return patients;
+	}
+	
 	
 	@PostMapping(path = "/signup")
 	public User addUser(@RequestBody User user) throws Exception {
