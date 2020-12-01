@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -74,6 +75,20 @@ public class EhealthController {
 	}
 
 	
+	@PostMapping(path = "/del-doctor")
+	public List<Doctor> deleteDoctor(@RequestBody String name) throws Exception {
+		boolean rem = false;
+		for (Doctor doctorIterate : doctors) {
+			if(doctorIterate.getName().toLowerCase().equals(name.toLowerCase())) {
+				rem = true;
+				doctors.remove(doctorIterate);
+			}
+		}
+		if(!rem) {
+			throw new Exception("Doctor name did not match");
+		}
+		return doctors;
+	}
 	
 	@PostMapping(path = "/signup")
 	public User addUser(@RequestBody User user) throws Exception {
@@ -182,12 +197,15 @@ public class EhealthController {
 	public List<ChatBox> getChatBox(@RequestBody ChatBox chatBox) {
 		List<ChatBox> toSend = new ArrayList<ChatBox>();
 		for (ChatBox chatBox2 : chatBoxs) {
-			if(chatBox.getpatientName().equals(chatBox2.getpatientName()) || chatBox.getdoctorName().equals(chatBox2.getdoctorName())) {
-				if(chatBox2.getpatientName().length()>0 && chatBox2.getdoctorName().length()>0 && chatBox2.getpatientName() !=chatBox2.getdoctorName() )
-				toSend.add(chatBox2);
+			if (chatBox.getpatientName().equals(chatBox2.getpatientName())
+					|| chatBox.getdoctorName().equals(chatBox2.getdoctorName())) {
+				if (chatBox2.getpatientName().length() > 0 && chatBox2.getdoctorName().length() > 0
+						&& chatBox2.getpatientName() != chatBox2.getdoctorName()) {
+					toSend.add(chatBox2);
+				}
 			}
 		}
-		
+
 		return toSend;
 	}
 	@PostMapping(path = "/add/chat")
