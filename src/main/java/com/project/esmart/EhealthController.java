@@ -21,6 +21,7 @@ public class EhealthController {
 	List<Appointment> appointments = new ArrayList<Appointment>();
 	List<Medication> medication = new ArrayList<Medication>();
 	List<Billing> billings = new ArrayList<Billing>();
+	List<ChatBox> chatBoxs = new ArrayList<ChatBox>();
 	
 	@PostMapping(path = "/updatepatient")
 	public List<Patient> updatePatientDetails(@RequestBody Patient patient) {
@@ -157,13 +158,17 @@ public class EhealthController {
 	}
 	@PostMapping(path = "/add/billing")
 	public List<Billing> addBilling(@RequestBody Billing billing) {
+		boolean flag = false;
 		for (Billing billingIte : billings) {
 			if(billingIte.getPatientId().equals(billing.getPatientId())) {
 				billingIte.setAmount(billing.getAmount());
 				billingIte.setDescription(billing.getDescription());
 				billingIte.setPayed(billing.isPayed());
-				return billings;
+				flag = true;
 			}
+		}
+		if(flag) {
+			return billings;
 		}
 		this.billings.add(billing);
 		return billings;
@@ -171,5 +176,22 @@ public class EhealthController {
 	@GetMapping(path = "/view/billing")
 	public List<Billing> viewBilling() {
 		return this.billings;
+	}
+	
+	@PostMapping(path = "/view/chat")
+	public List<ChatBox> getChatBox(@RequestBody ChatBox chatBox) {
+		List<ChatBox> toSend = new ArrayList<ChatBox>();
+		for (ChatBox chatBox2 : chatBoxs) {
+			if(chatBox.getPatientId().equals(chatBox2.getPatientId()) || chatBox.getDoctorId().equals(chatBox2.getDoctorId())) {
+				toSend.add(chatBox2);
+			}
+		}
+		
+		return toSend;
+	}
+	@PostMapping(path = "/add/chat")
+	public List<ChatBox> addChatBox(@RequestBody ChatBox chatBox) {
+		this.chatBoxs.add(chatBox);
+		return chatBoxs;
 	}
 }
