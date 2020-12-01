@@ -11,7 +11,7 @@
 	<groupId>com.project</groupId>
 	<artifactId>esmart</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>esmart</name>
+	<name>healthcare</name>
 	<packaging>jar</packaging>
 	<description>Smart city Project</description>
 

@@ -182,7 +182,8 @@ public class EhealthController {
 	public List<ChatBox> getChatBox(@RequestBody ChatBox chatBox) {
 		List<ChatBox> toSend = new ArrayList<ChatBox>();
 		for (ChatBox chatBox2 : chatBoxs) {
-			if(chatBox.getPatientId().equals(chatBox2.getPatientId()) || chatBox.getDoctorId().equals(chatBox2.getDoctorId())) {
+			if(chatBox.getpatientName().equals(chatBox2.getpatientName()) || chatBox.getdoctorName().equals(chatBox2.getdoctorName())) {
+				if(chatBox2.getpatientName().length()>0 && chatBox2.getdoctorName().length()>0 && chatBox2.getpatientName() !=chatBox2.getdoctorName() )
 				toSend.add(chatBox2);
 			}
 		}

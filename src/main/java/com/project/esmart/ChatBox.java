@@ -4,8 +4,8 @@ public class ChatBox {
 	
 	private String question;
 	private String reply;
-	private String doctorId;
-	private String patientId;
+	private String doctorName;
+	private String patientName;
 	
 	public String getQuestion() {
 		return question;
@@ -19,17 +19,17 @@ public class ChatBox {
 	public void setReply(String reply) {
 		this.reply = reply;
 	}
-	public String getDoctorId() {
-		return doctorId;
+	public String getdoctorName() {
+		return doctorName;
 	}
-	public void setDoctorId(String doctorId) {
-		this.doctorId = doctorId;
+	public void setdoctorName(String doctorName) {
+		this.doctorName = doctorName;
 	}
-	public String getPatientId() {
-		return patientId;
+	public String getpatientName() {
+		return patientName;
 	}
-	public void setPatientId(String patientId) {
-		this.patientId = patientId;
+	public void setpatientName(String patientName) {
+		this.patientName = patientName;
 	}
 	
 }
