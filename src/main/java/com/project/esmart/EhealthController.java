@@ -77,6 +77,9 @@ public class EhealthController {
 	@PostMapping(path = "/signup")
 	public User addUser(@RequestBody User user) throws Exception {
 		String userId = "";
+		if(user.getType().equalsIgnoreCase("admin")) {
+//			throw new Exception("User Name Exist");
+		}
 		if(user.getType().equalsIgnoreCase("doctor")) {
 			Doctor doctor = new Doctor();
 			userId = (doctors.size()+1) + user.getUser();
@@ -107,23 +110,10 @@ public class EhealthController {
 				if(!user.getType().equalsIgnoreCase(users.get(i).getType())) {
 					throw new Exception("User Type did not match");
 				}
+				return user;
 			}
 		}
-		if(user.getType().equalsIgnoreCase("doctor")) {
-			for (Doctor doctor : doctors) {
-				if(doctor.getId().equals(user.getUserId())) {
-					return user;
-				}
-		}
-		}
-		if(user.getType().equalsIgnoreCase("patient")) {
-			for (Patient patient : patients) {
-				if(patient.getPatientId().equals(user.getUserId())) {
-					return user;
-				}
-			}
 		
-		}
 		throw new Exception("Please enter correct credential");
 	}
 	
