@@ -1,4 +1,4 @@
-package com.project.esmart;
+package com.project.ehealth;
 
 public class User {
 	private String userName;

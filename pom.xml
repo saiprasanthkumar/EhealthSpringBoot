@@ -9,7 +9,7 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.project</groupId>
-	<artifactId>esmart</artifactId>
+	<artifactId>ehealth</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>healthcare</name>
 	<packaging>jar</packaging>

@@ -1,12 +1,10 @@
-package com.project.esmart;
+package com.project.ehealth;
 
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
+import java.util.Set;
 
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -236,17 +234,15 @@ public class EhealthController {
 	public List<ChatBox> getChatBox(@RequestBody ChatBox chatBox) {
 		List<ChatBox> toSend = new ArrayList<ChatBox>();
 		for (ChatBox chatBox2 : chatBoxs) {
-			if (chatBox.getpatientName().equals(chatBox2.getpatientName())
-					|| chatBox.getdoctorName().equals(chatBox2.getdoctorName())) {
-				if (chatBox2.getpatientName().length() > 0 && chatBox2.getdoctorName().length() > 0
-						&& chatBox2.getpatientName() != chatBox2.getdoctorName()) {
-					toSend.add(chatBox2);
+			if (chatBox2.getpatientId().equals(chatBox.getpatientId())
+					|| chatBox2.getdoctorId().equals(chatBox.getdoctorId())) {
+						toSend.add(chatBox2);
 				}
 			}
+		return toSend;
 		}
 
-		return toSend;
-	}
+		
 	@PostMapping(path = "/add/chat")
 	public List<ChatBox> addChatBox(@RequestBody ChatBox chatBox) {
 		this.chatBoxs.add(chatBox);
